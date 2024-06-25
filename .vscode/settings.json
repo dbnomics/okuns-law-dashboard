@@ -1,0 +1,20 @@
+{
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.indexing": true,
+  "python.analysis.packageIndexDepths": [
+    { "name": "dbnomics_data_model", "depth": 10 },
+    { "name": "dbnomics_fetcher_toolbox", "depth": 10 }
+  ],
+  "python.analysis.typeCheckingMode": "strict",
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "always",
+      "source.organizeImports": "always"
+    },
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "editor.rulers": [120]
+  },
+  "python.testing.pytestEnabled": true
+}
