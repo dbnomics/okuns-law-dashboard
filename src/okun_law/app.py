@@ -1,3 +1,5 @@
+import importlib.resources
+
 import pandas as pd
 import streamlit as st
 from chart_creator import create_okun_curve
@@ -10,8 +12,12 @@ def filter_by_date(df, start_date, end_date):
 
 
 def main():
-    st.set_page_config(page_title="DBnomics Okun's Law", page_icon="favicon.png")
-    st.image("dbnomics.svg", width=300)
+    package_dir = importlib.resources.files("okun_law")
+    st.set_page_config(
+        page_title="DBnomics Okun's Law",
+        page_icon=str(package_dir / "images/favicon.png"),
+    )
+    st.image(str(package_dir / "images/dbnomics.svg"), width=300)
     st.title(":blue[Okun's Law]")
 
     tab1, tab2 = st.tabs(["Explanations", "Charts"])

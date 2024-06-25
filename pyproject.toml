@@ -20,5 +20,8 @@ dev-dependencies = ["ruff"]
 [tool.hatch.metadata]
 allow-direct-references = true
 
+[tool.hatch.build]
+include = ["src/okun_law/images/*"]
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/okun_law"]
