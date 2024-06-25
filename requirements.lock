@@ -28,8 +28,6 @@ charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via streamlit
-colorama==0.4.6
-    # via click
 dbnomics==1.2.5
     # via okun-law
 gitdb==4.0.11
@@ -101,8 +99,6 @@ rich==13.7.1
 rpds-py==0.18.1
     # via jsonschema
     # via referencing
-ruff==0.4.10
-    # via okun-law
 six==1.16.0
     # via python-dateutil
 smmap==5.0.1
