@@ -12,7 +12,7 @@ def filter_by_date(df, start_date, end_date):
 
 
 def main():
-    package_dir = importlib.resources.files("okun_law")
+    package_dir = importlib.resources.files("okuns_law")
     st.set_page_config(
         page_title="DBnomics Okun's Law",
         page_icon=str(package_dir / "images/favicon.png"),
