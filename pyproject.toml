@@ -1,20 +1,19 @@
 [project]
-name = "okun-law"
+name = "okuns-law"
 version = "0.1.0"
-description = "Add your description here"
+description = "Okun's Law dashboard with DBnomics data"
 authors = [
-    { name = "Juliette Bornier", email = "juliette.bornier.3110@gmail.com" }
+    { name = "Juliette Bornier", email = "juliette.bornier.3110@gmail.com" },
 ]
 dependencies = [
     "streamlit>=1.36.0",
-    "pandas",
-    "numpy",
-    "plotly",
-    "dbnomics",
-    "ruff>=0.4.10",
+    "pandas>=2.2.2",
+    "numpy>=2.0.0",
+    "plotly>=5.22.0",
+    "dbnomics>=1.2.5",
 ]
 readme = "README.md"
-requires-python = ">= 3.8"
+requires-python = ">= 3.12"
 
 [build-system]
 requires = ["hatchling"]
@@ -22,10 +21,10 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = ["ruff"]
+dev-dependencies = ["ruff>=0.5.0"]
 
 [tool.hatch.metadata]
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/okun_law"]
+packages = ["src/okuns_law"]
