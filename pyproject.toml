@@ -8,9 +8,10 @@ authors = [
 dependencies = [
     "streamlit>=1.36.0",
     "pandas>=2.2.2",
-    "numpy>=2.0.0",
     "plotly>=5.22.0",
     "dbnomics>=1.2.5",
+    "streamlit-option-menu>=0.3.13",
+    "scikit-learn>=1.5.1",
 ]
 readme = "README.md"
 requires-python = ">= 3.12"
