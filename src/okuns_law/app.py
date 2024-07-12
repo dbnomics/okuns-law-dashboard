@@ -2,8 +2,9 @@ import importlib.resources
 
 import pandas as pd
 import streamlit as st
-from chart_creator import create_okun_curve
+from chart_creator import create_example_okun, create_okun_curve
 from data_loader import load_data
+from streamlit_option_menu import option_menu
 
 
 def filter_by_date(df, start_date, end_date):
@@ -11,7 +12,7 @@ def filter_by_date(df, start_date, end_date):
     return df[(df["period"] >= start_date) & (df["period"] <= end_date)]
 
 
-def main():
+def main() -> None:
     package_dir = importlib.resources.files("okuns_law")
     st.set_page_config(
         page_title="DBnomics Okun's Law",
@@ -20,9 +21,45 @@ def main():
     st.image(str(package_dir / "images/dbnomics.svg"), width=300)
     st.title(":blue[Okun's Law]")
 
-    tab1, tab2 = st.tabs(["Explanations", "Charts"])
+    def local_css(file_name):
+        with open(file_name) as f:
+            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
-    with tab1:
+    local_css(package_dir / "assets/styles.css")
+
+    st.markdown(
+        """
+        <style>
+        hr {
+            height: 1px;
+            border: none;
+            color: #333;
+            background-color: #333;
+            margin-top: 3px;
+            margin-bottom: 3px;
+        }
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown("---")
+
+    with st.sidebar:
+        selected = option_menu(
+            menu_title="Menu",
+            options=[
+                "Explanations",
+                "Okun's Law Charts",
+                "Sources",
+            ],
+            icons=["book", "bar-chart", "search"],
+            menu_icon=":",
+            default_index=0,
+        )
+
+    if selected == "Explanations":
         st.header(":blue[Explanations]")
         st.write(
             "\n"
@@ -32,6 +69,13 @@ def main():
             "Okun's Law highlights a linear relationship between the economic growth rate and the change in the unemployment rate.\n"
             "Below a certain threshold of GDP growth, the unemployment rate increases.\n "
             "Beyond this same threshold, the unemployment rate decreases.\n"
+        )
+        # Plot the Example of Okuns's Law
+
+        fig = create_example_okun()
+        st.plotly_chart(fig)
+
+        st.write(
             "This law thus allows for the prediction of the effects of accelerated economic growth on unemployment.\n"
             "\n"
             "Thanks to the GDP growth coefficient, it is possible to know the necessary growth for stabilizing or even reducing unemployment.\n"
@@ -52,7 +96,7 @@ def main():
             "\n"
         )
 
-    with tab2:
+    if selected == "Okun's Law Charts":
         st.header(":blue[Okun's Law Per Country]")
         countries = ["France", "United States", "Argentina", "Japan", "Spain", "India"]
         selected_countries = st.multiselect(
@@ -80,13 +124,19 @@ def main():
                     df_filtered = filter_by_date(df, start_date, end_date)
                     fig = create_okun_curve(df_filtered, country)
                     st.plotly_chart(fig)
-        st.subheader(":blue[**DBnomics sources**]")
+
+    if selected == "Sources":
+        st.subheader("**Data**")
         st.write(
-            ":blue[Unemploymant rate]: [*link*](https://db.nomics.world/ILO/UNE_DEAP_SEX_AGE_EDU_RT?tab=list)"
+            "- [Unemploymant rate](https://db.nomics.world/ILO/UNE_DEAP_SEX_AGE_EDU_RT?tab=list)"
         )
         st.write(
-            ":blue[GDP growth rate]: [*link*](https://db.nomics.world/IMF/WEO:2024-04?tab=list)"
+            "- [GDP growth rate](https://db.nomics.world/IMF/WEO:2024-04?tab=list)"
         )
+
+        st.markdown("---")
+        st.write("[Source Code](https://github.com/dbnomics/okuns-law-dashboard)")
+        st.write("[DBnomics](https://db.nomics.world)")
 
 
 if __name__ == "__main__":
